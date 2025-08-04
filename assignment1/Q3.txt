@@ -1,0 +1,44 @@
+https://gist.github.com/dan49075/b26ca718937635e2f7a7
+
+
+1. Addition (case 1)
+Announces "You entered Addition"
+
+Prompts for two operands (num1, num2)
+
+Computes result = num1 + num2
+
+Prints formatted result: "%.2f + %.2f = %.2f" 
+GitHub
++7
+Gist
++7
+Gist
++7
+
+2. Subtraction (case 2)
+Similar flow
+
+Computes result = num1 - num2
+
+Displays using printf("%.2f - %.2f = %.2f") 
+GitHub
+
+3. Multiplication (case 3)
+Prompts operands
+
+Computes result = num1 * num2
+
+Outputs using "%.2f * %.2f = %.2f" 
+Gist
+
+4. Division (case 4)
+Prompts operands
+
+Computes result = num1 / num2 (no explicit zero‑division check)
+
+Prints "%.2f / %.2f = %.2f" 
+Gist
+
+Default case
+If input outside 1–4, prints: “Enter correct number e.g 1 ‑ 4” and skips calculations 
