@@ -1,0 +1,120 @@
+https://github.com/vittorioPiotti/DijkstraAlgorithm-C/blob/main/main.c
+
+This is a monolithic C implementation (main.c) that expresses a school‑project style pseudocode version of Dijkstra’s algorithm using static arrays and fixed graph sizes (up to 10 nodes) 
+github.com
++9
+github.com
++9
+github.com
++9
+. It includes:
+
+Constant definitions & structs for nodes, edges, routing tables, path records, and connectivity.
+
+Global arrays (NODES, EDGES) that define a default graph with directed/no‑direction edges.
+
+Procedural sections for initialization, user input (if interactive), execution of Dijkstra, and output display.
+
+🧩 Key Data Structures
+Defined via struct types:
+
+struct Node: holds an ID, label (A–J), and whether used.
+
+struct Edge: edge ID, cost, endpoints from/to, direction flag, used flag.
+
+struct Path, struct Paths: to capture discovered shortest‑path candidates.
+
+struct RoutingTable, struct RoutingTables: to store per‑node routing info (predecessor, cost).
+
+struct ConnectedNodes: adjacency connectivity for efficient neighbor lookup.
+
+These structures support both the algorithm logic and ability to mark visited/unvisited, maintain costs, and backtrack paths 
+github.com
+.
+
+🔧 Functionality Outline
+While I can’t see all the individual functions (due to webpage rendering issues), here’s how they're typically laid out in this repository:
+
+1. Initialization Functions
+Load or reset node and edge data into arrays.
+
+Possibly functions that mark all used flags = 0.
+
+2. Input / Graph Construction
+A routine to take user input or fallback on default static graph.
+
+Validate costs and directions, ensure no duplicate directed edges, consistent with the INF/COST ranges defined.
+
+3. Dijkstra’s Algorithm Implementation
+A dijkstra() or similarly named function receives:
+
+ConnectedNodes[]
+
+RoutingTables[] to store cost, prec
+
+NODES[] to mark visited
+
+Core logic: repeated selection of the next minimum cost unvisited node, relax each outgoing edge, update cost and predecessor tables, until all nodes settled.
+
+4. Routing Table / Path Extraction
+After Dijkstra runs, gather final shortest‑path tree:
+
+For each destination node, back‑chain via prec to source.
+
+Populate and then print out Paths or RoutingTable entries.
+
+5. User Interface & Output
+Print node list (labels), costs, and paths.
+
+Possibly prompt to specify start/destination nodes.
+
+Error checks: invalid node, unreachable path (∞) etc.
+
+6. Main Entry Point (main())
+Calls initialization, optionally accepts user input (start label, destination).
+
+Calls dijkstra(...).
+
+Presents all shortest costs / full table or specific path(s).
+
+Terminates cleanly.
+
+📌 Function-by-Function Behavior (Inferred Layout)
+Function	Purpose
+init_graph()	Initializes NODES, EDGES, adjacency lists, reset used flags.
+read_input()	(Optional) Parses CLI or console input to override defaults. Includes validation.
+build_adjacency()	Converts static edge list into per-node ConnectedNodes arrays.
+dijkstra_algorithm(start, graphdata, routables)	Core loop: extract-min + relaxation across edges.
+print_routing_table()	Displays final cost + predecessor for every node.
+print_path(destination, routingtables)	Constructs a path by following prec pointers back to start; prints sequence.
+main()	Coordinates calls: init → input (optionally) → build graph → run Dijkstra → show results.
+
+✅ How Each Function Works (Assumed)
+Initialization: clears prior state, ensures edges and nodes are marked NOT_USED/unused.
+
+Graph builder: scans over EDGES const, for each used==0 builds adjacency array entries in ConnectedNodes struct for each node.
+
+Dijkstra core:
+
+At each iteration: find the unused node with minimum known cost.
+
+For each connected neighbor: if predecessor path via this node yields lower cost, update.
+
+Mark processed nodes used.
+
+Routing table printing: prints each node ID or label, cost, and the predecessor chain.
+
+Path reconstruction: follows prec pointers backwards from destination to source to gather path.
+
+User input (if interactive): might allow user to choose start/destination nodes or edit edge costs before running.
+
+🔎 Improvements & Observations
+Implementation favors static sizing and assumes max 10 nodes; great for educational simplicity.
+
+Use of direction flags allows mixing directed & undirected edges.
+
+Likely lacks dynamic memory—all array-based.
+
+Could benefit from clearer modularization: separate files or functions for input, graph build, algorithm, output.
+
+Edge cases: zero‑cost edges? disconnected nodes? Likely handled via used/cost = MAX_COST patterns.
